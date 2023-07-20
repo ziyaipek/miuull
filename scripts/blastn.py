@@ -2,7 +2,7 @@ import snakemake
 from snakemake.shell import shell
 
 query = snakemake.input.query
-out = snakemake.output[8]
+out = snakemake.output[0]
 
 db_prefix = snakemake.params.db_prefix
 perc_identity = snakemake.params.perc_identity

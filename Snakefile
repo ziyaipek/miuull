@@ -29,7 +29,7 @@ rule tRNAscan_stats_wildcard:
         tRNA = "output/tRNAscan/{genome}.tRNA",
         stats = "output/tRNAscan/{genome}.stats"
     params:
-        threads = 2
+        threads=2
     conda:
         "env/env.yaml"
     script:
@@ -37,16 +37,17 @@ rule tRNAscan_stats_wildcard:
 
 rule makeblastdb:
     input:
-        "resources/{type}/db/{db}.fasta"
+        "resource/{type}/db/{db}.fasta"
     output:
-        multiext("output/{type}/db/{db}",
-            ".ndb",
-            ".nhr",
-            ".nin",
-            ".not",
-            ".nsq",
-            ".ntf",
-            ".nto")
+        (
+            "output/{type}/db/{db}.ndb",
+            "output/{type}/db/{db}.nhr",
+            "output/{type}/db/{db}.nin",
+            "output/{type}/db/{db}.not",
+            "output/{type}/db/{db}.nsq",
+            "output/{type}/db/{db}.ntf",
+            "output/{type}/db/{db}.nto"
+        )
     params:
         outname="output/{type}/db/{db}"
     conda:
@@ -56,7 +57,7 @@ rule makeblastdb:
 
 rule blastn:
     input:
-        query = "resources/{type}/query/{query}.fasta",
+        query = "resource/{type}/query/{query}.fasta",
         db = "output/{type}/db/{db}.ndb"
     output:
         "output/{type}/{db}/{query}.blastn"
